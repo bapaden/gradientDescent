@@ -60,7 +60,7 @@ std::vector<double> scalarMult(const double c,const std::vector<double>& x)
     return y;
 }
 
-class algState
+class unconstrainedOptimProblem
 {
     
 public:
@@ -69,7 +69,7 @@ public:
     std::vector<double> df;
     unsigned int n;
     
-    algState(double (*_f)(std::vector<double>),
+    unconstrainedOptimProblem(double (*_f)(std::vector<double>),
              std::vector<double> _x)
     {
         f=_f;//construct with ptr to function
@@ -83,12 +83,12 @@ public:
 class gradDescent
 {
 public:
-    algState* state_ptr;
+    unconstrainedOptimProblem* state_ptr;
     double armijo_coeff;
     double step_factor;
     double step_size;//TODO add constructor which sets defaults
 
-    void update_state(algState& state)
+    void update_state(unconstrainedOptimProblem& state)
     {
         state_ptr=&state;
     }
@@ -123,7 +123,7 @@ public:
     }
     
     //Constructor
-    gradDescent(algState& _state, double _step_size, double _step_factor, double _armijo_coeff)
+    gradDescent(unconstrainedOptimProblem& _state, double _step_size, double _step_factor, double _armijo_coeff)
     {
       step_size=_step_size;
       step_factor=_step_factor;
@@ -132,7 +132,7 @@ public:
     }
     
     //Constructor(overloaded)
-    gradDescent(algState& _state)
+    gradDescent(unconstrainedOptimProblem& _state)
     {
       step_size=1.0;
       step_factor=0.5;

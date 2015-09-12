@@ -162,7 +162,7 @@ int main(int argc, char **argv) {
     x0.at(0)=3.0;
     x0.at(1)=2.0;
     x0.at(2)=1.0;
-    algState state(&cost_function,x0);
+    unconstrainedOptimProblem state(&cost_function,x0);
     state.df.at(0)=-3.0;
     state.df.at(1)=-2.0;
     state.df.at(2)=-1.0;
