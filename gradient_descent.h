@@ -5,27 +5,15 @@
 #include <string.h>
 #include <limits>
 #include <ctime>
-//#include <cassert>"
+#include <cassert>"
 #include "math_utils.h"
-//#include "matrix.h"
-
-//#include "../../../Software_Libraries/boost_1_58_0/boost/concept_check.hpp"
 
 /* State of the algorithm includes the dim of state space n, 
  function that is op*timized f, current arg value x and current gradient df */ 
 
 
 
-std::vector<double> scalarMult(const double c,const std::vector<double>& x)
-{ 
-    std::vector<double> y=x;
-    for(int i=0;i<x.size();i++)
-    {
-        y.at(i)*=c;
-    }
-    
-    return y;
-}
+
 
 class unconstrainedOptimProblem
 {

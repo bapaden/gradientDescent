@@ -5,7 +5,7 @@
 // #include <string.h>
 // #include <limits>
 #include <ctime>
-//#include <assert.h>
+#include <assert.h>
 
 std::vector<double> add(const std::vector<double>& x,const std::vector<double>& y)
 {
@@ -13,7 +13,7 @@ std::vector<double> add(const std::vector<double>& x,const std::vector<double>& 
     if(x.size()!=y.size())
     {
         printf("Adding vectors of mismatched size\n");
-        //assert(x.size()==y.size());
+        assert(x.size()==y.size());
     }   
     else
     { 
@@ -31,7 +31,7 @@ double dot(const std::vector<double>& x,const std::vector<double>& y)
     if(x.size()!=y.size())
     {
         printf("Inner product of vectors of mismatched size\n");
-        //assert(x.size()==y.size());
+        assert(x.size()==y.size());
     }   
     else
     { 
@@ -41,4 +41,14 @@ double dot(const std::vector<double>& x,const std::vector<double>& y)
         }
     }
     return z;
+}
+std::vector<double> scalarMult(const double c,const std::vector<double>& x)
+{ 
+    std::vector<double> y=x;
+    for(int i=0;i<x.size();i++)
+    {
+        y.at(i)*=c;
+    }
+    
+    return y;
 }
