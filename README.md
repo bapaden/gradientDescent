@@ -1,2 +1,4 @@
 # gradientDescent
-A versatile implementation of the basic gradient descent algorithm (in progress)
+Work in progress... 
+
+A handy implementation of the basic gradient descent algorithm

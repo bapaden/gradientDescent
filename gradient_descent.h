@@ -31,20 +31,20 @@ public:
     double step_factor;
     double step_size;//TODO add constructor which sets defaults
     
-    void update_state(unconstrainedOptimProblem& state)
-    {
-        state_ptr=&state;
-    }
-    
-    double scalar_func(double s)
-    {
-        std::vector<double> x=state_ptr->x;
-        std::vector<double> df=state_ptr->df;
-        std::vector<double> temp1=scalarMult(s,df);
-        std::vector<double> temp2=add(x,temp1);
-        
-        return state_ptr->f(temp2);
-    }
+//     void update_state(unconstrainedOptimProblem& state)
+//     {
+//         state_ptr=&state;
+//     }
+//     
+//     double scalar_func(double s)
+//     {
+//         std::vector<double> x=state_ptr->x;
+//         std::vector<double> df=state_ptr->df;
+//         std::vector<double> temp1=scalarMult(s,df);
+//         std::vector<double> temp2=add(x,temp1);
+//         
+//         return state_ptr->f(temp2);
+//     }
     
     void armijo_step()
     {
