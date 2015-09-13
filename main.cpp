@@ -1,4 +1,3 @@
-
 #include "gradient_descent.h"
 #include <cstdio>
 #include <vector>
