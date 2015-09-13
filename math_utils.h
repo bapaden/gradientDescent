@@ -1,11 +1,6 @@
 #include <cstdio>
 #include <vector>
-// #include <array>
-// #include <cmath>
-// #include <string.h>
-// #include <limits>
-#include <ctime>
-#include <assert.h>
+#include <cassert>
 
 std::vector<double> add(const std::vector<double>& x,const std::vector<double>& y)
 {
@@ -42,6 +37,7 @@ double dot(const std::vector<double>& x,const std::vector<double>& y)
     }
     return z;
 }
+
 std::vector<double> scalarMult(const double c,const std::vector<double>& x)
 { 
     std::vector<double> y=x;

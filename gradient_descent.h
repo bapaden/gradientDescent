@@ -1,19 +1,7 @@
-#include <cstdio>
-#include <vector>
-#include <array>
-#include <cmath>
 #include <string.h>
 #include <limits>
 #include <ctime>
-#include <cassert>"
 #include "math_utils.h"
-
-/* State of the algorithm includes the dim of state space n, 
- function that is op*timized f, current arg value x and current gradient df */ 
-
-
-
-
 
 class unconstrainedOptimProblem
 {
