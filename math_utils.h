@@ -2,6 +2,7 @@
 #include <vector>
 #include <cassert>
 #include <cmath>
+#include <float.h>
 
 //vector sum
 std::vector<double> add(const std::vector<double>& x,const std::vector<double>& y)
@@ -53,42 +54,42 @@ std::vector<double> scalarMult(const double c,const std::vector<double>& x)
 	return y;
 }
 
+//Compute the gradient by central difference
 std::vector<double> gradient(double (*f)(std::vector<double>), const std::vector<double>& x, double tol)
 {
 	std::vector<double> grad(x.size());
 	std::vector<double> forward = x;
 	std::vector<double> backward = x;
 	
-	
-	double delta=1.0;
-	double eps=1.0;
-	double diff=1.0;
-	double grad1, grad_approx;
+	double delta;
+	double diff=2.0;
+	double grad_approx1,grad_approx2;
 	int count;
-	printf("running grad\n");
-	printf("f(x0):%f\n",f(x));
 	
 	for(int i=0;i<x.size();i++)
 	{
-		delta=1.0;
-		eps=1.0;
+		forward = x;
+		backward = x;
+		delta=1e-3;
 		count=0;
-		while(fabs(diff-1)>tol && count<10)
+		diff=2.0*tol;
+		
+		while(diff>tol && 10.0*diff<DBL_MAX)
 		{
 			count++;
 			
 			forward.at(i)+=delta;
 			backward.at(i)-=delta;
-			grad_approx=(f(forward)-f(backward))/(2.0*delta);
+			grad_approx1=(f(forward)-f(backward))/(2.0*delta);
 			
 			delta*=0.5;
 			forward.at(i)-=delta;
 			backward.at(i)+=delta;
-			diff = ( (f(forward)-f(backward))/(2.0*delta) ) / grad_approx;
+			grad_approx2=(f(forward)-f(backward))/(2.0*delta);
 			
-			printf("diff:%f\n",diff);
+			diff = fabs(grad_approx2-grad_approx1) / grad_approx1;
 		}
-		grad.at(i)=grad_approx;
+		grad.at(i)=grad_approx2;
 	}
 	
 	return grad;
