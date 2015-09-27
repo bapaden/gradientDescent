@@ -1,7 +1,10 @@
+#ifndef GRADIENT_DESCENT_H
+#define GRADIENT_DESCENT_H
+
 #include <string.h>
 #include <limits>
 #include <ctime>
-#include "math_utils.h"
+#include "optim_utils.h"
 
 class unconstrainedOptimProblem
 {
@@ -49,19 +52,21 @@ public:
 	{
 		std::vector<double>* df_x = &(cost_ptr->df);
 		std::vector<double>* xold = &(cost_ptr->x);
-		std::vector<double> xnew = add(*xold,scalarMult(-step_size,*df_x));
-		double f_x = cost_ptr->f(*xold);
+// 		std::vector<double> xnew = add(*xold,scalarMult(-step_size,*df_x));
+        std::vector<double> xnew = (*xold)-(step_size*(*df_x));
+        double f_x = cost_ptr->f(*xold);
 		
 		printf("grad in armijo:(%f,%f,%f)\n",df_x->at(0),df_x->at(1),df_x->at(2));
 		printf("x in armijo:(%f,%f,%f)\n",xold->at(0),xold->at(1),xold->at(2));
 		printf("xnew in armijo:(%f,%f,%f)\n",xnew.at(0),xnew.at(1),xnew.at(2));
 		int count=0;  
-		while(cost_ptr->f(xnew)>f_x-armijo_coeff*step_size*dot(*df_x,*df_x) && count<25)
+		while(cost_ptr->f(xnew) > f_x-armijo_coeff*step_size*dot(*df_x,*df_x) && count<25)
 		{
 			count++;
 			step_size *= step_factor;
 			xnew.clear();
-			xnew = add(*xold,scalarMult(-step_size,*df_x));
+// 			xnew = add(*xold,scalarMult(-step_size,*df_x));
+            xnew = (*xold)-(step_size*(*df_x));
 		}
 		
 		cost_ptr->x=xnew;//modifies value pointed to by xold
@@ -86,3 +91,5 @@ public:
 	}
 	
 };//end of step class
+
+#endif

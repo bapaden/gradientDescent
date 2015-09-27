@@ -18,9 +18,9 @@ int main(int argc, char **argv) {
 	x0.at(0)=1.0;
 	x0.at(1)=2.0;
 	x0.at(2)=3.0;
-	unconstrainedOptimProblem state(&cost_function,x0);
+	unconstrainedOptimProblem example_problem(&cost_function,x0);
 	
-	gradDescent gd(state);
+	gradDescent gd(example_problem);
 	
 	for(int i=0;i<5;i++)
 	{

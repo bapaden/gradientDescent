@@ -1,58 +1,13 @@
+#ifndef OPTIM_UTILS_H
+#define OPTIM_UTILS_H
+
 #include <cstdio>
 #include <vector>
 #include <cassert>
 #include <cmath>
 #include <float.h>
+#include "matrix.h"
 
-//vector sum
-std::vector<double> add(const std::vector<double>& x,const std::vector<double>& y)
-{
-	std::vector<double> z(x.size());
-	if(x.size()!=y.size())
-	{
-		printf("Adding vectors of mismatched size\n");
-		assert(x.size()==y.size());
-	}   
-	else
-	{ 
-		for(int i=0;i<x.size();i++)
-		{
-			z.at(i)=x.at(i)+y.at(i);
-		}
-	}
-	return z;
-}
-
-//inner product
-double dot(const std::vector<double>& x,const std::vector<double>& y)
-{
-	double z;
-	if(x.size()!=y.size())
-	{
-		printf("Inner product of vectors of mismatched size\n");
-		assert(x.size()==y.size());
-	}   
-	else
-	{ 
-		for(int i=0;i<x.size();i++)
-		{
-			z += x.at(i)*y.at(i);
-		}
-	}
-	return z;
-}
-
-//multiply a vector by a scalar
-std::vector<double> scalarMult(const double c,const std::vector<double>& x)
-{ 
-	std::vector<double> y=x;
-	for(int i=0;i<x.size();i++)
-	{
-		y.at(i)*=c;
-	}
-	
-	return y;
-}
 
 //Compute the gradient by central difference
 std::vector<double> gradient(double (*f)(std::vector<double>), const std::vector<double>& x, double tol)
@@ -96,10 +51,4 @@ std::vector<double> gradient(double (*f)(std::vector<double>), const std::vector
 }
 
 
-
-
-
-
-
-
-
+#endif
