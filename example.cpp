@@ -2,38 +2,50 @@
 
 double cost_function(std::vector<double> x)
 {
-	double cost=0.0;
-	for(int i=0;i<x.size();i++)
-	{
-		cost+=x.at(i)*(i+1.0)*x.at(i);
-	}
-	return cost;
+    double cost=0.0;
+    for(int i=0;i<x.size();i++)
+    {
+        cost+=x.at(i)*(i+1.0)*x.at(i);
+    }
+    return cost;
 }
 
 int main(int argc, char **argv) {
-	
-	//for debugging and testing
-	std::vector<double> x0;
-	x0.resize(3);
-	x0.at(0)=1.0;
-	x0.at(1)=2.0;
-	x0.at(2)=3.0;
-	unconstrainedOptimProblem example_problem(&cost_function,x0);
-	
-	gradDescent gd(example_problem);
-	
-	for(int i=0;i<5;i++)
-	{
-		
-		printf("\ncost: %f\n",gd.cost_ptr->f(gd.cost_ptr->x));
-		printf("state: (%f,%f,%f)\n",gd.cost_ptr->x.at(0),gd.cost_ptr->x.at(1),gd.cost_ptr->x.at(2));
-		gd.cost_ptr->df=gradient(&cost_function, gd.cost_ptr->x, 1e-2);
-		printf("grad: (%f,%f,%f)\n",gd.cost_ptr->df.at(0),gd.cost_ptr->df.at(1),gd.cost_ptr->df.at(2));
-		gd.armijo_step();
-		printf("new state: (%f,%f,%f)\n",gd.cost_ptr->x.at(0),gd.cost_ptr->x.at(1),gd.cost_ptr->x.at(2));
-		printf("new cost: %f\n",gd.cost_ptr->f(gd.cost_ptr->x));
-	}
-	
-	printf("done");
-	return 0;
+    
+    //Initial condition
+    std::vector<double> x0;
+    x0.resize(3);
+    x0.at(0)=1.0;
+    x0.at(1)=2.0;
+    x0.at(2)=3.0;
+    
+    //Initialize an optimization problem
+    unconstrainedOptimProblem example_problem(&cost_function,x0);
+    
+    //Initial step size of armijo step
+    double step_size=1.0;
+    //Reduction of step size to meet armijo condition
+    double step_factor=0.5;
+    //Parameter for armijo condition
+    double armijo_coeff=1e-4;
+    //Tolerance of gradient computation
+    double grad_tol=1e-3;
+    //Termination conditions
+    double f_tol=1e-6;
+    double x_tol=1e-6;
+    int max_iter=1000;
+    //Initialize gradient descent solver
+    gradDescent gd(example_problem,
+                   step_size,
+                   step_factor,
+                   armijo_coeff,
+                   grad_tol,
+                   x_tol,
+                   f_tol,
+                   max_iter);
+    
+    //Call optimization function
+    gd.optimize();
+    
+    return 0;
 }

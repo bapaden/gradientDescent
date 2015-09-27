@@ -1,4 +1,16 @@
 # gradientDescent
-Work in progress... 
+Working properly but still adding functionality. See example.cpp for usage.
 
-A handy implementation of the basic gradient descent algorithm
+Compiling:
+
+cd gradientDescent
+mkdir build
+cd build
+cmake ..
+make 
+
+Running:
+
+./gradientDescent
+
+

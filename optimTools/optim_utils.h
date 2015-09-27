@@ -32,7 +32,6 @@ std::vector<double> gradient(double (*f)(std::vector<double>), const std::vector
 		while(diff>tol && 10.0*diff<DBL_MAX)
 		{
 			count++;
-			
 			forward.at(i)+=delta;
 			backward.at(i)-=delta;
 			grad_approx1=(f(forward)-f(backward))/(2.0*delta);
