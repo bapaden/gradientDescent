@@ -1,7 +1,13 @@
 # gradientDescent
-Working properly but still adding functionality. See example.cpp for usage.
+See example.cpp for usage on a 1000 variable toy problem. The example problem is 
 
-Compiling:
+min f(x)=x'Ax 
+
+with A>0 having spectrum from 1 to 100
+
+
+
+Compiling (usual cmake procedure):
 
 cd gradientDescent
 
