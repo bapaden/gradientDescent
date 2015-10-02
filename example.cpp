@@ -5,7 +5,7 @@ double cost_function(std::vector<double> x)
     double cost=0.0;
     for(int i=0;i<x.size();i++)
     {
-        cost+=x.at(i)*(i+1.0)*x.at(i);
+        cost+=(x.at(i))*(1.0+0.01*i)*x.at(i);
     }
     return cost;
 }
@@ -14,10 +14,11 @@ int main(int argc, char **argv) {
     
     //Initial condition
     std::vector<double> x0;
-    x0.resize(3);
-    x0.at(0)=1.0;
-    x0.at(1)=2.0;
-    x0.at(2)=3.0;
+    x0.resize(1000);
+    for(int i=0;i<x0.size();i++)
+    {
+        x0.at(i)=(double) i;
+    }
     
     //Initialize an optimization problem
     unconstrainedOptimProblem example_problem(&cost_function,x0);
@@ -46,6 +47,8 @@ int main(int argc, char **argv) {
     
     //Call optimization function
     gd.optimize();
+    //Print the solution to terminal
+    print_sol(gd.cost_ptr->f(gd.cost_ptr->x),gd.max_iter,gd.cost_ptr->x);
     
     return 0;
 }

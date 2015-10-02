@@ -67,11 +67,9 @@ public:
         
        ///* printf("grad in armijo:(%f,%f,%f)\n",df_x->at(0),df_x->at(1),df_x->at(2));
         //printf("x in armijo:(%f,%f,%f)\n",xold->at(0),xold->at(1),xold->at(2));
-        //printf("xnew in armijo:(%f,%f,%f)\n",xnew.at(0),xnew.at(1),xnew.at(2));
-        int count=0;  
-        while(cost_ptr->f(xnew) > f_x-armijo_coeff*step_size*dot(*df_x,*df_x) && count<5)
+        //printf("xnew in armijo:(%f,%f,%f)\n",xnew.at(0),xnew.at(1),xnew.at(2)); 
+        while(cost_ptr->f(xnew) > f_x-armijo_coeff*step_size*dot(*df_x,*df_x))
         {
-            count++;
             step_size *= step_factor;
             xnew.clear();
             xnew = (*xold)-(step_size*(*df_x));
@@ -94,12 +92,13 @@ public:
         {
             cost_ptr->df=gradient(cost_ptr->f, cost_ptr->x, grad_tol);
             step_data=armijo_step();
-            printf("f:%f\n",cost_ptr->f(cost_ptr->x));
-            printf("x:(%f,%f,%f)\n",cost_ptr->x.at(0),cost_ptr->x.at(1),cost_ptr->x.at(2));
+            //printf("f:%f\n",cost_ptr->f(cost_ptr->x));
             
             iter_count++;
             
         }
+        //reuse variable for printing iterations
+        max_iter=iter_count;
     }
     
     //Constructor

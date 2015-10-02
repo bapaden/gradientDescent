@@ -29,7 +29,7 @@ std::vector<double> gradient(double (*f)(std::vector<double>), const std::vector
 		count=0;
 		diff=2.0*tol;
 		
-		while(diff>tol && 10.0*diff<DBL_MAX)
+		while(diff>tol && count<10)
 		{
 			count++;
 			forward.at(i)+=delta;
@@ -39,14 +39,27 @@ std::vector<double> gradient(double (*f)(std::vector<double>), const std::vector
 			delta*=0.5;
 			forward.at(i)-=delta;
 			backward.at(i)+=delta;
-			grad_approx2=(f(forward)-f(backward))/(2.0*delta);
-			
+            grad_approx2=(f(forward)-f(backward))/(2.0*delta);
 			diff = fabs(grad_approx2-grad_approx1) / grad_approx1;
 		}
 		grad.at(i)=grad_approx2;
 	}
 	
 	return grad;
+}
+
+void print_sol(double fval ,int iters,std::vector<double>& x)
+{
+    printf("Solution found in %d iterations\n",iters);
+    printf("Decision variables: %d\n",x.size());
+    printf("Minimum cost: %f\n",fval);
+    printf("Solution:\n");
+    for(int i=0;i<x.size();i++)
+    {
+        printf("%f\n",x.at(i));
+    }
+    
+    return;
 }
 
 
