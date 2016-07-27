@@ -1,17 +1,29 @@
 #include "optimTools/gradient_descent.h"
+#include <memory>
 
-double cost_function(std::vector<double>& x)
+typedef std::shared_ptr<double> dblPtr;
+class myProblem: public cost_function
 {
-    double cost=0.0;
-    for(int i=0;i<x.size();i++)
+public:
+    myProblem()
     {
-        cost+=x[i]*x[i]*(1.0+(double) i);
+        return;
     }
-    return cost;
-}
+    double cost(decisionVar& x)
+    {
+        double c=0.0;
+        for(int i=0;i<x.size();i++)
+        {
+            c+=x[i]*x[i]*(1.0+10.0*(double) i);
+        }
+        return c;
+    }
+};
 
 int main(int argc, char **argv) {
     
+    //Cost object
+    myProblem myCost;
     //Initial condition
     std::vector<double> x0;
     x0.resize(20);
@@ -21,7 +33,7 @@ int main(int argc, char **argv) {
     }
     
     //Initialize an optimization problem
-    unconstrainedOptimProblem example_problem(&cost_function,x0);
+//     unconstrainedOptimProblem example_problem(&myCost,x0);
     
     //Initial step size of armijo step
     double step_size=1.0;
@@ -36,7 +48,8 @@ int main(int argc, char **argv) {
     double x_tol=1e-6;
     int max_iter=500;
     //Initialize gradient descent solver
-    gradDescent gd(example_problem,
+    gradDescent gd(&myCost,
+                   x0,
                    step_size,
                    step_factor,
                    armijo_coeff,
@@ -48,7 +61,7 @@ int main(int argc, char **argv) {
     //Call optimization function
     gd.optimize();
     //Print the solution to terminal
-    print_sol(gd.cost_ptr->f(gd.cost_ptr->x),gd.max_iter,gd.cost_ptr->x);
+    print_sol(gd.f->cost(gd.x),gd.max_iter,gd.x);
     
     return 0;
 }
