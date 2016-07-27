@@ -1,11 +1,11 @@
-#include "gradient_descent.h"
+#include "optimTools/gradient_descent.h"
 
-double cost_function(std::vector<double> x)
+double cost_function(std::vector<double>& x)
 {
     double cost=0.0;
     for(int i=0;i<x.size();i++)
     {
-        cost+=(x.at(i))*(1.0+0.01*i)*x.at(i);
+        cost+=x[i]*x[i]*(1.0+(double) i);
     }
     return cost;
 }
@@ -14,10 +14,10 @@ int main(int argc, char **argv) {
     
     //Initial condition
     std::vector<double> x0;
-    x0.resize(1000);
+    x0.resize(20);
     for(int i=0;i<x0.size();i++)
     {
-        x0.at(i)=(double) i;
+        x0.at(i)=4.0;
     }
     
     //Initialize an optimization problem
@@ -28,13 +28,13 @@ int main(int argc, char **argv) {
     //Reduction of step size to meet armijo condition
     double step_factor=0.5;
     //Parameter for armijo condition
-    double armijo_coeff=1e-4;
+    double armijo_coeff=1e-3;
     //Tolerance of gradient computation
-    double grad_tol=1e-3;
+    double grad_tol=1e-6;
     //Termination conditions
     double f_tol=1e-6;
     double x_tol=1e-6;
-    int max_iter=1000;
+    int max_iter=500;
     //Initialize gradient descent solver
     gradDescent gd(example_problem,
                    step_size,
