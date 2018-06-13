@@ -1,26 +1,7 @@
-# gradientDescent
-See example.cpp for usage on a 1000 variable toy problem. The example problem is 
+# Gradient Descent Method <br />
+Gradient descent method for unconstrained minimization. The implementation uses finite differences to compute a gradient, and the Armijo step size rule to move in the steepest descent direction.<br /> 
 
-min f(x)=x'Ax 
-
-with A>0 having spectrum from 1 to 100
-
-
-
-Compiling (usual cmake procedure):
-
-cd gradientDescent
-
-mkdir build
-
-cd build
-
-cmake ..
-
-make 
-
-Running:
-
-./gradientDescent
-
+# Example usage <br />
+Using the CMakelists.txt to compile the project builds a simple use demo which minimizes a trivial quadratic function of the form: <br />
+min f(x)=x'Ax<br /> 
 
